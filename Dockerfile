@@ -5,24 +5,33 @@ MAINTAINER Andrew Longley <aolongley@gmail.com>
 EXPOSE 5901 25565
 
 RUN adduser atlauncher --disabled-login
-RUN adduser atlauncher sudo
+#RUN adduser atlauncher sudo
 
 RUN apt-get update && \
     apt-get -y install \
+    vim \
     wget \
     lxde-core \
     tightvncserver && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /home/atlauncher/ATLauncher
+#run mkdir -p /home/atlauncher/.vnc
+
 WORKDIR /home/atlauncher/ATLauncher
 
 RUN wget https://download.nodecdn.net/containers/atl/ATLauncher.jar
 
-COPY entrypoint.sh /home/atlauncher
-
-RUN chmod a+x /home/atlauncher/entrypoint.sh
+COPY entrypoint.sh /tmp
+COPY *vnc* /tmp/
+#COPY xstartup /tmp
+#COPY passwd /tmp
+RUN chmod a+x /tmp/*.sh
 
 RUN chown -R atlauncher /home/atlauncher
 
-CMD ["/home/atlauncher/entrypoint.sh"]
+RUN /tmp/vncsetup.sh
+
+USER vnc
+
+CMD ["/home/vnc/entrypoint.sh"]
