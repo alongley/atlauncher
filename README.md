@@ -37,6 +37,9 @@ use the new name in all the appropriate commands below.
 
 ## other notes
 
+To start ATlauncher open a prompt in the VM and issue
+	$ _JAVA_AWT_WM_NONREPARENTING=1 java -jar ATLauncher.jar
+
 startvncserver.sh is a relic of a previous method of setting up vncserver as a service 
 that runs automatically on container startup. it uses systemd which docker containers do not
 support well.

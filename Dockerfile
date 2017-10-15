@@ -1,4 +1,5 @@
-FROM openjdk:8u121-jre
+#FROM openjdk:8u121-jre
+FROM openjdk:8-jre
 MAINTAINER Andrew Longley <aolongley@gmail.com>
 # update of jschulberger/atlauncher to fix build issues
 
